@@ -16,3 +16,6 @@ sandbox/secret.key
 # IDE-specific
 .idea/
 .vscode/
+
+# Local files
+presentation_guide.txt
