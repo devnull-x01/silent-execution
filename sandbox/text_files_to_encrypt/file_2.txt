@@ -1,0 +1,3 @@
+Email: user2@example.com
+Password: StrongPassword456
+Transaction: Received $250 from user3@example.com

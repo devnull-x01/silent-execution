@@ -1,3 +1,0 @@
-{"ts": "2025-12-30T11:14:01.223044+00:00", "action": "APP_START", "details": {"cmd": "init", "sandbox": "/home/changeme/lab/silent-execution/sandbox"}}
-{"ts": "2025-12-30T11:14:01.224612+00:00", "action": "INIT_SANDBOX", "details": {"root": "/home/changeme/lab/silent-execution/sandbox"}}
-{"ts": "2025-12-30T11:14:01.225496+00:00", "action": "APP_END", "details": {}}

@@ -1,23 +1,36 @@
 # main.py
 import threading
 import os
-import logging
-
-from app.cli import run
+from app.gui import run_gui
 from app.simulation import malware_simulation
 
-# Set up logging to output/logs.txt
-os.makedirs('output', exist_ok=True)
-logging.basicConfig(filename='output/logs.txt', level=logging.INFO, format='%(asctime)s - %(message)s')
+def main():
+    """
+    Main entry point for the Silent Execution application.
 
-if __name__ == "__main__":
-    # Run malware simulation in background thread
+    This function performs two primary tasks:
+    1. It ensures that all necessary directories for the simulation's output
+       and sandboxing are created before the application starts.
+    2. It launches the malware simulation in a separate background thread,
+       allowing the legitimate GUI to run concurrently and remain responsive.
+    """
+    # Ensure all necessary directories exist at startup to prevent runtime errors.
+    os.makedirs('output', exist_ok=True)
+    os.makedirs('sandbox/generated', exist_ok=True)
+    os.makedirs('sandbox/text_files_to_encrypt', exist_ok=True)
+
+    # Create and start the simulation thread.
+    # Using a daemon thread (or explicitly managing it) ensures the simulation
+    # doesn't block the main application from exiting.
     sim_thread = threading.Thread(target=malware_simulation)
     sim_thread.start()
-    
-    # Run the CLI (legitimate calculator)
-    run()
-    
-    # Wait for simulation to finish
+
+    # Run the legitimate GUI application in the main thread.
+    # This will block until the user closes the calculator window.
+    run_gui()
+
+if __name__ == "__main__":
+    main()
+
     sim_thread.join()
-    print("Simulation complete. Check output/logs.txt and sandbox/ for details.")
+    print("\nSimulation finished safely. Check output/ and sandbox/ folders.")

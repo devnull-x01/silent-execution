@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+
+# Generated files from simulation
+output/
+sandbox/generated/
+sandbox/text_files_to_encrypt/*.encrypted_sim
+sandbox/secret.key
+
+# IDE-specific
+.idea/
+.vscode/

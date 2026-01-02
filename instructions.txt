@@ -1,0 +1,69 @@
+# Instructions for Silent Execution: Malware Behavior Simulator
+
+This document provides the necessary steps to set up and run the malware simulation project.
+
+## 1. Setup the Python Virtual Environment
+
+It is highly recommended to use a virtual environment to manage project dependencies and avoid conflicts with other Python projects.
+
+### On macOS / Linux:
+```bash
+# Navigate to the project root directory
+cd /path/to/silent-execution
+
+# Create a virtual environment
+python3 -m venv .venv
+
+# Activate the virtual environment
+source .venv/bin/activate
+```
+
+## 2. Install Required Packages
+
+Once the virtual environment is activated, install the necessary Python packages using pip. The only external dependency is the `cryptography` library.
+
+```bash
+# Ensure your pip is up-to-date
+pip install --upgrade pip
+
+# Install the required package
+pip install cryptography
+```
+
+## 3. Run the Simulation
+
+With the environment set up and dependencies installed, you can run the main application.
+
+```bash
+python3 main.py
+```
+
+This command will:
+1.  Launch the Tkinter **calculator GUI**, which serves as the legitimate frontend application.
+2.  Simultaneously start the **malware simulation** in a background thread.
+
+## 4. Observe the Simulation's Effects
+
+While you interact with the calculator, the simulation will perform its actions in the background. You can observe the results in the `sandbox/` and `output/` directories.
+
+-   **`sandbox/text_files_to_encrypt/`**: The original text files in this directory will be encrypted and replaced with `.encrypted_sim` files containing ciphertext.
+-   **`sandbox/generated/`**: This directory will be populated with simulated malware artifacts, including:
+    -   `secret.key`: The encryption key used for the ransomware simulation.
+    -   `startup_simulation/`: Simulates persistence.
+    -   `desktop_sim/` & `documents_sim/`: Simulates duplication.
+    -   `propagation_sim/`: Simulates propagation.
+-   **`output/`**:
+    -   `logs.txt`: A human-readable log of the simulation's actions.
+    -   `events.jsonl`: A machine-readable, detailed log of every event.
+
+## 5. Clean Up
+
+After you are done, you can deactivate the virtual environment and clean up the generated files.
+
+```bash
+# Deactivate the virtual environment
+deactivate
+
+# (Optional) Remove all generated files
+rm -rf sandbox/generated/* sandbox/text_files_to_encrypt/*.encrypted_sim output/*
+```

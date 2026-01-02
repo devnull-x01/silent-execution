@@ -1,19 +1,45 @@
+# app/logger.py
 import json
-from datetime import datetime, timezone
+import time
 from pathlib import Path
-from typing import Any, Dict
-
 
 class EventLogger:
-    def __init__(self, path: Path):
-        self.path = path
-        self.path.parent.mkdir(parents=True, exist_ok=True)
+    """
+    A structured event logger that writes events to a JSON Lines file.
 
-    def event(self, action: str, details: Dict[str, Any]):
-        rec = {
-            "ts": datetime.now(timezone.utc).isoformat(),
-            "action": action,
-            "details": details,
+    Each event is a JSON object on a new line, which is efficient for logging
+    and easy to parse. This format is ideal for machine-readable logs that
+    can be fed into data analysis pipelines.
+    """
+    def __init__(self, filename="output/events.jsonl"):
+        """
+        Initializes the logger and ensures the output directory exists.
+
+        Args:
+            filename (str): The path to the log file.
+        """
+        self.log_file = Path(filename)
+        # Ensure the parent directory exists
+        self.log_file.parent.mkdir(exist_ok=True)
+        # Clear the log file at the start of a new session
+        if self.log_file.exists():
+            self.log_file.unlink()
+
+    def event(self, event_type: str, data: dict = None):
+        """
+        Logs a new event to the file.
+
+        The event record includes a precise timestamp, the event type, and any
+        associated data.
+
+        Args:
+            event_type (str): A string identifying the type of event (e.g., "SIMULATION_START").
+            data (dict, optional): A dictionary containing event-specific details.
+        """
+        record = {
+            "timestamp": time.time(),
+            "event": event_type,
+            "data": data or {}
         }
-        with self.path.open("a", encoding="utf-8") as f:
-            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        with self.log_file.open("a") as f:
+            f.write(json.dumps(record) + "\n")
