@@ -1,4 +1,4 @@
-#!/home/changeme/lab/silent-execution/.venv/bin/python
+#!/home/neuroshell/silent-execution/.venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
