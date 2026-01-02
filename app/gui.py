@@ -86,9 +86,9 @@ class CalculatorApp:
 
         # Configure grid rows and columns to expand equally
         for i in range(6):
-            button_grid.row_configure(i, weight=1)
+            button_grid.rowconfigure(i, weight=1)
         for i in range(4):
-            button_grid.column_configure(i, weight=1)
+            button_grid.columnconfigure(i, weight=1)
 
     def on_button_press(self, char):
         """

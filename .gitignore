@@ -6,6 +6,7 @@ __pycache__/
 
 # Virtual environment
 .venv/
+venv/
 
 # Generated files from simulation
 output/
@@ -19,3 +20,4 @@ sandbox/secret.key
 
 # Local files
 presentation_guide.txt
+text.txt
